@@ -1,10 +1,5 @@
 mode: ContinuousDeployment
-branches:
-  main:
-    regex: ^main$
-    increment: Patch
-    tag: alpha
-  develop:
-    regex: ^develop$
-    increment: Minor
-    tag: beta  
+branches: {}
+ignore:
+  sha: []
+merge-message-formats: {}
