@@ -85,7 +85,7 @@ jobs:
           ./gradlew assembleRelease --no-daemon
 
       - name: Build Maven
-        if: ${{ inputs.component == 'java' && github.ref == 'refs/heads/main' }}
+        if: ${{ inputs.component == 'java' }}
         shell: bash
         run: |
           chmod +x ./mvnw
