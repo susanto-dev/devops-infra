@@ -6,7 +6,7 @@ on:
       component:
         required: true
         default: ""
-
+        type: string
 jobs:
   build:
     name: PR Build
