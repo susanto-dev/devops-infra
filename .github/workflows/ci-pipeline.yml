@@ -103,7 +103,7 @@ jobs:
       - name: Save android apk file to github packages
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         shell: bash
-        enV:
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd android
