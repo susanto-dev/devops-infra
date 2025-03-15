@@ -3,6 +3,8 @@ branches:
   main:
     regex: ^main$
     increment: Patch
-ignore:
-  sha: []
-merge-message-formats: {}
+    tag: alpha
+  develop:
+    regex: ^develop$
+    increment: Minor
+    tag: beta  
