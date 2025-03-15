@@ -51,7 +51,7 @@ jobs:
         uses: gittools/actions/gitversion/execute@v3.1.11
         with:
            useConfigFile: true
-           configFilePath: ./.devops/GitVersion/GitVersion.yml
+           configFilePath: ./GitVersion/GitVersion.yml
       - name: Setup node
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         uses: actions/setup-node@v4
