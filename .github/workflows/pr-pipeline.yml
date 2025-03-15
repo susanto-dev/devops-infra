@@ -31,32 +31,32 @@ jobs:
           dotnet-version: '6.0.4xx'
 
       - name: Setup node
-        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+        if: ${{ inputs.component == 'react-native' }}
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'yarn'
 
       - name: Install npm dependencies
-        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+        if: ${{ inputs.component == 'react-native'}}
         run: |
           npm install
 
       - name: Setup Gradle
-        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+        if: ${{ inputs.component == 'react-native' }}
         uses: gradle/actions/setup-gradle@v4
         with:
           add-job-summary: 'on-failure'
 
       - name: Cache Gradle Wrapper
-        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+        if: ${{ inputs.component == 'react-native'}}
         uses: actions/cache@v4
         with:
           path: ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
 
       - name: Cache Gradle Dependencies
-        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+        if: ${{ inputs.component == 'react-native' }}
         uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
@@ -65,7 +65,7 @@ jobs:
             ${{ runner.os }}-gradle-caches-
 
       - name: Restore node_modules from cache
-        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+        if: ${{ inputs.component == 'react-native' }}
         uses: actions/cache@v4
         with:
           path: node_modules
@@ -73,11 +73,11 @@ jobs:
           restore-keys: ${{ runner.os }}-node-modules-
 
       - name: Install node_modules
-        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+        if: ${{ inputs.component == 'react-native' }}
         run: yarn install --immutable
 
       - name: Build Android Release
-        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+        if: ${{ inputs.component == 'react-native' }}
         shell: bash
         run: |
           cd android
