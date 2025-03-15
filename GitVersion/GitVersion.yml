@@ -1,7 +1,7 @@
 mode: ContinuousDeployment
 branches:
   main:
-    regex: main?[/-]
+    regex: ^main$
     increment: Patch
 ignore:
   sha: []
