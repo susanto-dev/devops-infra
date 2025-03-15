@@ -98,14 +98,18 @@ jobs:
         run: |
           cd android
           chmod +x ./gradlew
-          ./gradlew assembleRelease --no-daemon
+          ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} --no-daemon
 
-      - name: Save android apk file as artifact
+      - name: Save android apk file to github packages
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-apk-${{ steps.gitversion.outputs.SemVer }}
-          path: android/app/build/outputs/apk/release/app-release.apk
+        shell: bash
+        enV:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd android
+          chmod +x ./gradlew
+          ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }}  publish
+
 
       - name: Update Maven version in pom.xml
         if: ${{ inputs.component == 'java' && github.ref == 'refs/heads/main' }}
