@@ -1,5 +1,8 @@
 mode: ContinuousDeployment
-branches: {}
+branches:
+  develop:
+    regex: develop?[/-]
+    increment: Patch
 ignore:
   sha: []
 merge-message-formats: {}
