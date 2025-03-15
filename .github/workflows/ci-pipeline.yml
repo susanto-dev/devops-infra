@@ -45,13 +45,13 @@ jobs:
       - name: List folders
         shell: bash
         run: |
-          ls
+          ls ./.devops/
       - name: Determine Version
         id: gitversion
         uses: gittools/actions/gitversion/execute@v3.1.11
         with:
            useConfigFile: true
-           configFilePath: GitVersion/GitVersion.yml
+           configFilePath: ./.devops/GitVersion/GitVersion.yml
       - name: Setup node
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         uses: actions/setup-node@v4
