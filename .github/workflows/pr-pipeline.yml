@@ -38,6 +38,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install npm dependencies
+        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         run: |
           npm install
 
@@ -72,6 +73,7 @@ jobs:
           restore-keys: ${{ runner.os }}-node-modules-
 
       - name: Install node_modules
+        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         run: yarn install --immutable
 
       - name: Build Android Release
