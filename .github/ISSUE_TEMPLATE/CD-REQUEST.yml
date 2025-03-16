@@ -27,7 +27,7 @@ body:
     id: deployment_environment
     attributes:
       label: "Select your deployment environment"
-      description: "Which environemnt to deploy to"
+      description: "Which environemnt to deploy to?"
       options:
         - dev
         - uat
