@@ -33,3 +33,5 @@ body:
         - uat
         - prod
       default: 0
+    validations:
+      required: true
