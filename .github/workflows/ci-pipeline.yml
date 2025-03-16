@@ -108,7 +108,7 @@ jobs:
         run: |
           cd android
           chmod +x ./gradlew
-          ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }}  publish
+          ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} build publish
 
 
       - name: Update Maven version in pom.xml
