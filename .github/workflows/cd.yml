@@ -92,7 +92,7 @@ jobs:
            -H "Accept: application/vnd.github+json" \
            -H "Authorization: Bearer $GITHUB_TOKEN" \
            -H "X-GitHub-Api-Version: 2022-11-28" \
-           https://maven.pkg.github.com/susanto-dev/$REPOSITORY/com/example/$REPOSITORY/$VERSION/$REPOSITORY-$VERSION.jar
+           https://maven.pkg.github.com/susanto-dev/$REPOSITORY/com/example/$REPOSITORY/$VERSION/$REPOSITORY-$VERSION.pom
            ls
 
       - name: Deploy with env name
@@ -103,7 +103,7 @@ jobs:
           VERSION: ${{ github.event.inputs.version }}
           ENVIRONMENT: ${{ github.event.inputs.environment }}
         run: |
-         mvn deploy:deploy-file -Dfile=./$REPOSITORY/$VERSION.jar \
+         mvn deploy:deploy-file -Dfile=./$REPOSITORY-$VERSION.jar \
          -DgroupId=com.example \
          -DartifactId=$REPOSITORY-$ENVIRONMENT \
          -Dversion=$VERSION \
