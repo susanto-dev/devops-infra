@@ -63,7 +63,7 @@ jobs:
            </server>
           </servers>
           </settings>
-           EOF
+          EOF
 
       - name: Download Artifact from GitHub Packages
         env:
