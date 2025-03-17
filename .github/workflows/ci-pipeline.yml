@@ -108,7 +108,7 @@ jobs:
         run: |
           cd android
           chmod +x ./gradlew
-          ./gradlew -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} react_native_ui_templates:assembleRelease publish
+          ./gradlew -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} assembleRelease publish
 
       - name: Update Maven version in pom.xml
         if: ${{ inputs.component == 'java' && github.ref == 'refs/heads/main' }}
