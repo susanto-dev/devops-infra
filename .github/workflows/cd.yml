@@ -16,14 +16,6 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
           ref: develop
 
-#      - name: Checkout CI scripts
-#        uses: actions/checkout@v4
-#        with:
-#          repository: susanto-dev/java-component
-#          fetch-depth: 0
-#          ref: main
-#          token: ${{ secrets.ACCESS_TOKEN }}
-
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -70,8 +62,6 @@ jobs:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
-           cat ~/.m2/settings.xml
-#           mvn dependency:get -Dartifact=com.example:java-component:0.1.0-alpha.58 -DremoteRepositories=https://maven.pkg.github.com/susanto-dev/java-component -s ~/.m2/settings.xml
            echo "Download jar"
            curl -O -L \
            -H "Accept: application/vnd.github+json" \
@@ -89,4 +79,11 @@ jobs:
      - name: Deploy with env name
        shell: bash
        run: |
-        
+        mvn deploy:deploy-file -Dfile=./java-component-0.1.0-alpha.58.jar \
+	-DgroupId=com.example \
+	-DartifactId=java-component-dev \
+	-Dversion=0.1.0-alpha.58 \
+    -DpomFile=./java-component-0.1.0-alpha.58.pom \
+    -DrepositoryId=github \
+    -Durl=https://maven.pkg.github.com/susanto-dev/java-component \
+    -Dtoken=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 -s ~/.m2/settings.xml
