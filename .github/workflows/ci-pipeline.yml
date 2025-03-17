@@ -91,14 +91,14 @@ jobs:
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         run: |
            yarn install --immutable
-
-      - name: Build Android Release
-        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
-        shell: bash
-        run: |
-          cd android
-          chmod +x ./gradlew
-          ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} --no-daemon
+#
+#      - name: Build Android Release
+#        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+#        shell: bash
+#        run: |
+#          cd android
+#          chmod +x ./gradlew
+#          ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} --no-daemon
 
       - name: Save android apk file to github packages
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
@@ -108,8 +108,7 @@ jobs:
         run: |
           cd android
           chmod +x ./gradlew
-          ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }}  publish
-
+          ./gradlew -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} assembleRelease publish
 
       - name: Update Maven version in pom.xml
         if: ${{ inputs.component == 'java' && github.ref == 'refs/heads/main' }}
