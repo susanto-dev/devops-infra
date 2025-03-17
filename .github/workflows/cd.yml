@@ -78,31 +78,36 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          REPOSITORY: ${{ github.event.inputs.repository }}
+          VERSION: ${{ github.event.inputs.version }}
         run: |
            echo "Download jar"
            curl -O -L \
            -H "Accept: application/vnd.github+json" \
            -H "Authorization: Bearer $GITHUB_TOKEN" \
            -H "X-GitHub-Api-Version: 2022-11-28" \
-           https://maven.pkg.github.com/susanto-dev/${github.event.inputs.repository}/com/example/${github.event.inputs.repository}/${github.event.inputs.version}/${github.event.inputs.repository}-${github.event.inputs.version}.jar
+           https://maven.pkg.github.com/susanto-dev/$REPOSITORY/com/example/$REPOSITORY/$VERSION/$REPOSITORY-$VERSION.jar
            echo "Download pom"
            curl -O -L \
            -H "Accept: application/vnd.github+json" \
            -H "Authorization: Bearer $GITHUB_TOKEN" \
            -H "X-GitHub-Api-Version: 2022-11-28" \
-           https://maven.pkg.github.com/susanto-dev/${github.event.inputs.repository}/com/example/${github.event.inputs.repository}/${github.event.inputs.version}/${github.event.inputs.repository}-${github.event.inputs.version}.pom
+           https://maven.pkg.github.com/susanto-dev/$REPOSITORY/com/example/$REPOSITORY/$VERSION/$REPOSITORY-$VERSION.jar
            ls
 
       - name: Deploy with env name
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          REPOSITORY: ${{ github.event.inputs.repository }}
+          VERSION: ${{ github.event.inputs.version }}
+          ENVIRONMENT: ${{ github.event.inputs.environment }}
         run: |
-         mvn deploy:deploy-file -Dfile=./${github.event.inputs.repository}/${github.event.inputs.version}.jar \
+         mvn deploy:deploy-file -Dfile=./$REPOSITORY/$VERSION.jar \
          -DgroupId=com.example \
-         -DartifactId=${github.event.inputs.repository}-${github.event.inputs.environment} \
-         -Dversion=${github.event.inputs.version} \
-         -DpomFile=./${github.event.inputs.repository}-${github.event.inputs.version}.pom \
+         -DartifactId=$REPOSITORY-$ENVIRONMENT \
+         -Dversion=$VERSION \
+         -DpomFile=./$REPOSITORY-$VERSION.pom \
          -DrepositoryId=github \
          -Durl=https://maven.pkg.github.com/susanto-dev/java-component \
          -Dtoken=$GITHUB_TOKEN -s ~/.m2/settings.xml
