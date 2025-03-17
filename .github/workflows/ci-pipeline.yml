@@ -104,8 +104,7 @@ jobs:
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         shell: bash
         run: |
-          ls android/app/build/outputs/aar/
-
+          ls -R android/app/build/outputs/
       - name: Save android apk file to github packages
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         shell: bash
