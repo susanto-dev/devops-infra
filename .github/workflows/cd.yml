@@ -29,11 +29,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
-#      - name: Authenticate with github package
-#        shell: bash
-#        run: |
-#          mkdir -p ~/.m2
-#          cat ~/.m2/settings.xml
+      - name: Authenticate with github package
+        shell: bash
+        run: |
+          cat ~/.m2/settings.xml
 #          cat > ~/.m2/settings.xml <<EOF
 #          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
 #          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
