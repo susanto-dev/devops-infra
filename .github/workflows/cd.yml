@@ -32,7 +32,7 @@ jobs:
 
       - name: Download Artifact from GitHub Packages
         run: |
-           mvn dependency:get -Dartifact=com.example.java-component:0.1.0-alpha.58 -DrepoUrl=https://maven.pkg.github.com/susanto-dev/java-component
+           mvn dependency:get -Dartifact=com.example:java-component:0.1.0-alpha.58 -DrepoUrl=https://maven.pkg.github.com/susanto-dev/java-component
 
       - name: Rename artifact id
         run: |
