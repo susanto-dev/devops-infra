@@ -72,9 +72,21 @@ jobs:
         run: |
            cat ~/.m2/settings.xml
 #           mvn dependency:get -Dartifact=com.example:java-component:0.1.0-alpha.58 -DremoteRepositories=https://maven.pkg.github.com/susanto-dev/java-component -s ~/.m2/settings.xml
+           echo "Download jar"
            curl -O -L \
            -H "Accept: application/vnd.github+json" \
            -H "Authorization: Bearer $GITHUB_TOKEN" \
            -H "X-GitHub-Api-Version: 2022-11-28" \
            https://maven.pkg.github.com/susanto-dev/java-component/com/example/java-component/0.1.0-alpha.58/java-component-0.1.0-alpha.58.jar
+          echo "Download pom"
+          curl -O -L \
+           -H "Accept: application/vnd.github+json" \
+           -H "Authorization: Bearer $GITHUB_TOKEN" \
+           -H "X-GitHub-Api-Version: 2022-11-28" \
+           https://maven.pkg.github.com/susanto-dev/java-component/com/example/java-component/0.1.0-alpha.58/java-component-0.1.0-alpha.58.pom
           ls
+
+     - name: Deploy with env name
+       shell: bash
+       run: |
+        
