@@ -71,18 +71,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
            cat ~/.m2/settings.xml
-           mvn dependency:get -Dartifact=com.example:java-component:0.1.0-alpha.58 -DremoteRepositories=https://maven.pkg.github.com/susanto-dev/java-component -s ~/.m2/settings.xml
-
-      - name: Rename artifact id
-        run: |
-          mvn versions:set-propery -Dproperty=artifactId -DnewValue=java-component-dev
-
-
-      - name: Package the Updated Artifact
-        run: mvn clean package
-
-      - name: Publish to GitHub Packages
-        run: mvn deploy
-        env:
-          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           mvn dependency:get -Dartifact=com.example:java-component:0.1.0-alpha.58 -DremoteRepositories=https://maven.pkg.github.com/susanto-dev/java-component -s ~/.m2/settings.xml
+           curl -O -L \
+           -H "Accept: application/vnd.github+json" \
+           -H "Authorization: Bearer $GITHUB_TOKEN" \
+           -H "X-GitHub-Api-Version: 2022-11-28" \
+           https://maven.pkg.github.com/susanto-dev/java-component/com/example/java-component/0.1.0-alpha.58/java-component-0.1.0-alpha.58.jar
+          ls
