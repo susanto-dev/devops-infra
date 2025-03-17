@@ -92,13 +92,13 @@ jobs:
         run: |
            yarn install --immutable
 
-#      - name: Build Android Release
-#        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
-#        shell: bash
-#        run: |
-#          cd android
-#          chmod +x ./gradlew
-#          ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} --no-daemon
+      - name: Build Android Release
+        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+        shell: bash
+        run: |
+          cd android
+          chmod +x ./gradlew
+          ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} --no-daemon
 
       - name: Save android apk file to github packages
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}

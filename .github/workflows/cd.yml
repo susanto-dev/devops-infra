@@ -1,0 +1,49 @@
+name: Continuous deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: CD
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.ACCESS_TOKEN }}
+          ref: develop
+
+#      - name: Checkout CI scripts
+#        uses: actions/checkout@v4
+#        with:
+#          repository: susanto-dev/java-component
+#          fetch-depth: 0
+#          ref: main
+#          token: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: Download Artifact from GitHub Packages
+        run: |
+           mvn dependency:get -Dartifact=com.example.java-component:0.1.0-alpha.58 -DrepoUrl=https://maven.pkg.github.com/susanto-dev/java-component
+
+      - name: Rename artifact id
+        run: |
+          mvn versions:set-propery -Dproperty=artifactId -DnewValue=java-component-dev
+
+
+      - name: Package the Updated Artifact
+        run: mvn clean package
+
+      - name: Publish to GitHub Packages
+        run: mvn deploy
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
