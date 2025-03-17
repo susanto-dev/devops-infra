@@ -100,11 +100,11 @@ jobs:
           chmod +x ./gradlew
           ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} --no-daemon
 
-#      - name: ls
-#        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
-#        shell: bash
-#        run: |
-#          ls andoid/app/build/outputs/aar/
+      - name: ls
+        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+        shell: bash
+        run: |
+          ls android/app/build/outputs/aar/
 
       - name: Save android apk file to github packages
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
