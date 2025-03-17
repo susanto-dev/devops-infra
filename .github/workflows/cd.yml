@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p ~/.m2
-          cat > ~/.m2/settings.xml <<EOL
+          cat > ~/.m2/settings.xml <<EOF
           <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
@@ -63,7 +63,7 @@ jobs:
            </server>
           </servers>
           </settings>
-           EOL
+           EOF
 
       - name: Download Artifact from GitHub Packages
         run: |
