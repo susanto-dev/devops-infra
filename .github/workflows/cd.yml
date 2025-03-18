@@ -125,7 +125,7 @@ jobs:
         run: |
 
          if [ $COMPONENT == "java" ]; then
-           filenam="./$REPOSITORY-$VERSION.jar"
+           filename="./$REPOSITORY-$VERSION.jar"
          else
            filename="./$REPOSITORY-$VERSION.apk"
          fi
