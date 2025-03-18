@@ -121,9 +121,10 @@ jobs:
           REPOSITORY: ${{ github.event.inputs.repository }}
           VERSION: ${{ github.event.inputs.version }}
           ENVIRONMENT: ${{ github.event.inputs.environment }}
+          COMPONENT: ${{ github.event.inputs.component }}
         run: |
 
-         if [ $COMPONENT == "java"]; then
+         if [ $COMPONENT == "java" ]; then
            filenam="./$REPOSITORY-$VERSION.jar"
          else
            filename="./$REPOSITORY-$VERSION.apk"
