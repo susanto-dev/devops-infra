@@ -120,15 +120,15 @@ jobs:
           </servers>
           </settings>
           EOF
-      - name: Save android apk file to github packages
-        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
-        shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd android
-          chmod +x ./gradlew
-          ./gradlew -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} publish
+#      - name: Save android apk file to github packages
+#        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+#        shell: bash
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: |
+#          cd android
+#          chmod +x ./gradlew
+#          ./gradlew -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} publish
       - name: Publish APK to GitHub Packages
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         run: |
