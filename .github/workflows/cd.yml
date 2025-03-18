@@ -135,5 +135,5 @@ jobs:
          -Dversion=$VERSION \
          -DpomFile=./$REPOSITORY-$VERSION.pom \
          -DrepositoryId=github \
-         -Durl=https://maven.pkg.github.com/susanto-dev/java-component \
+         -Durl=https://maven.pkg.github.com/susanto-dev/$REPOSITORY \
          -Dtoken=$GITHUB_TOKEN -s ~/.m2/settings.xml
