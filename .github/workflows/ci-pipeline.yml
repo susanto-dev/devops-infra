@@ -100,11 +100,6 @@ jobs:
           chmod +x ./gradlew
           ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} --no-daemon
 
-      - name: ls
-        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
-        shell: bash
-        run: |
-          ls -R android/app/build/outputs/
       - name: Save android apk file to github packages
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         shell: bash
@@ -114,6 +109,16 @@ jobs:
           cd android
           chmod +x ./gradlew
           ./gradlew -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} publish
+      - name: Publish APK to GitHub Packages
+        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+        run: |
+          mvn deploy:deploy-file \
+            -Dfile=android/app/build/outputs/apk/release/app-release.apk \
+            -DgroupId=com.example \
+            -DartifactId=react-native-component \
+            -Dversion=${{ steps.gitversion.outputs.SemVer }} \
+            -DrepositoryId=github \
+            -Durl=https://maven.pkg.github.com/susanto-dev/react-native-component
 
       - name: Update Maven version in pom.xml
         if: ${{ inputs.component == 'java' && github.ref == 'refs/heads/main' }}
