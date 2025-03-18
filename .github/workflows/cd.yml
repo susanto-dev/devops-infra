@@ -90,7 +90,7 @@ jobs:
           VERSION: ${{ github.event.inputs.version }}
           COMPONENT: ${{ github.event.inputs.component }}
         run: |
-           if [ $COMPONENT == "java"]; then
+           if [ $COMPONENT == "java" ]; then
             echo "Download jar"
             curl -O -L \
             -H "Accept: application/vnd.github+json" \
