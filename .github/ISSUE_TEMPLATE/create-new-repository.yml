@@ -1,0 +1,33 @@
+name: " 🔨 Request for a new Github Repository"
+description: Create a new GITHUB repository
+title: Create a new repository
+labels: repository
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this Github repository request form!
+  - type: input
+    id: reponame
+    attributes:
+      label: "Gitub Repository"
+      description: "Give name of your new github repository"
+      placeholder: "java-component"
+    validations:
+      required: true
+  - type: input
+    id: description
+    attributes:
+      label: "Description"
+      description: "Describe your repo"
+      placeholder: "Some description"
+    validations:
+      required: true
+  - type: input
+    id: soucebranch
+    attributes:
+      label: "Source Branch"
+      description: "What's your source branch(develop or any other)"
+      placeholder: "develop"
+    validations:
+      required: true
