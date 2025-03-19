@@ -91,24 +91,55 @@ jobs:
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         run: |
            yarn install --immutable
-#
-#      - name: Build Android Release
-#        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
-#        shell: bash
-#        run: |
-#          cd android
-#          chmod +x ./gradlew
-#          ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} --no-daemon
 
-      - name: Save android apk file to github packages
+      - name: Build Android Release
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd android
           chmod +x ./gradlew
-          ./gradlew -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} assembleRelease publish
+          ./gradlew assembleRelease -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} --no-daemon
+      - name: Authenticate with github package
+        shell: bash
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          rm ~/.m2/settings.xml
+          cat > ~/.m2/settings.xml <<EOF
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+          <servers>
+           <server>
+            <id>github</id>
+            <username>${GITHUB_ACTOR}</username>
+            <password>${GITHUB_TOKEN}</password>
+           </server>
+          </servers>
+          </settings>
+          EOF
+#      - name: Save android apk file to github packages
+#        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+#        shell: bash
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: |
+#          cd android
+#          chmod +x ./gradlew
+#          ./gradlew -PAPK_VERSION=${{ steps.gitversion.outputs.SemVer }} publish
+      - name: Publish APK to GitHub Packages
+        if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
+        run: |
+          mvn deploy:deploy-file \
+            -Dfile=android/app/build/outputs/apk/release/app-release.apk \
+            -DgroupId=com.example \
+            -DartifactId=react-native-component \
+            -Dversion=${{ steps.gitversion.outputs.SemVer }} \
+            -DrepositoryId=github \
+            -Durl=https://maven.pkg.github.com/susanto-dev/react-native-component \
+            -s ~/.m2/settings.xml
 
       - name: Update Maven version in pom.xml
         if: ${{ inputs.component == 'java' && github.ref == 'refs/heads/main' }}
