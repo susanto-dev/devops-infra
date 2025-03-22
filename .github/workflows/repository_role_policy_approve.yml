@@ -1,0 +1,79 @@
+name: Add a team to Github Repository
+
+on:
+  issues:
+   types:
+     - opened
+     - edited
+  inputs:
+      repository:
+        description: 'Give repository name'
+        required: true
+        default: 'java-component'
+      team:
+        description: 'Team name'
+        input: option
+        options:
+         - Leads
+         - Developers
+
+jobs:
+  add-team-to-repo:
+    if: (contains(github.event.issue.labels.*.name, 'add_team_to_repo'))
+    name: Add team to repo
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.ACCESS_TOKEN }}
+          ref: develop
+#      - name: Get issue parameters
+#        id: read-params
+#        uses: actions/github-script@v7
+#        with:
+#          script: core.setOutput("issue_form_payload",context.payload.issue.body);
+#
+#      - name: Parse issue body
+#        id: issue-parsed-data
+#        shell: bash
+#        run: |
+#         echo "${{ steps.read-params.outputs.issue_form_payload }}" > abc
+#         dos2unix abc
+#         for i in $(cat abc | sed '/^$/d' | sed)
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - uses: stefanbuck/github-issue-parser@v3
+        id: issue-parser
+        with:
+          template-path: .github/ISSUE_TEMPLATE/ADD-ROLE-TO-REPOSITORY.yml
+      - name: echo inputs
+        shell: bash
+        env: 
+          REPOSITORY: ${{ steps.issue-parser.outputs.issueparser_reponame }}
+          TEAM_NAME: ${{ steps.issue-parser.outputs.issueparser_team_name }}
+        run: |
+           echo "$REPOSITORY"
+           echo "$TEAM_NAME"
+      - name: Add a team
+        shell: bash
+        env:
+         GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          if [ $ -eq "Leads"];then
+            type="admin"
+          else
+            type="push"
+          HTTP_RESPONSE=$(curl -s -o response.txt -w "%{response_code}" \
+          -X PUT \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer $GITHUB_TOKEN" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/orgs/susanto-dev/teams//repos/susanto-dev/$ \
+          -d "{\"permission\":\"$type\"}")
+          echo "$HTTP_RESPONSE"
+          echo "PRINTING THE RESPONSE TEXT"
+          cat response.txt
