@@ -20,7 +20,8 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
           ref: develop
       - name: Debug Issue Labels
-        run: echo "Labels: ${{ toJson(github.event.issue.labels) }}"
+        run: |
+           echo "Labels: ${{ toJson(github.event.issue.labels) }}"
 #      - name: Get issue parameters
 #        id: read-params
 #        uses: actions/github-script@v7
