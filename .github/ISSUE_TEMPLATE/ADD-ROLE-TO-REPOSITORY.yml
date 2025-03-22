@@ -1,12 +1,12 @@
-name: "🚀 Continuous Deployment Request"
-description: Create a ticket for a new CD request
-title: Create a new CD
-labels: deployment
+name: "Add a team to Github repository"
+description: Add a team to Github repository
+title: Add a team to Github repository
+labels: add_team_to_repo
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this deployment form!
+        Thanks for taking the time to fill out this form!
   - type: input
     id: reponame
     attributes:
@@ -15,23 +15,14 @@ body:
       placeholder: "react-native-component"
     validations:
       required: true
-  - type: input
-    id: artifact_version
-    attributes:
-      label: "Artifact version"
-      description: "Give your artifact version"
-      placeholder: "0.1.0-alpha.56"
-    validations:
-      required: true
   - type: dropdown
-    id: deployment_environment
+    id: team_name
     attributes:
-      label: "Select your deployment environment"
-      description: "Which environemnt to deploy to?"
+      label: "Select your team"
+      description: "Which team to add to repo?"
       options:
-        - dev
-        - uat
-        - prod
+        - Leads
+        - Developers
       default: 0
     validations:
       required: true
