@@ -5,18 +5,18 @@ on:
    types:
      - opened
      - edited
-  inputs:
-      repository:
-        description: 'Give repository name'
-        required: true
-        default: 'java-component'
-      team:
-        description: 'Team name'
-        input: option
-        options:
-         - Leads
-         - Developers
-
+#  inputs:
+#      repository:
+#        description: 'Give repository name'
+#        required: true
+#        default: 'java-component'
+#      team:
+#        description: 'Team name'
+#        input: option
+#        options:
+#         - Leads
+#         - Developers
+#
 jobs:
   add-team-to-repo:
     if: (contains(github.event.issue.labels.*.name, 'add_team_to_repo'))
