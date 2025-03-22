@@ -32,8 +32,8 @@ jobs:
           REPOSITORY: ${{ steps.issue-parser.outputs.issueparser_reponame }}
           TEAM_NAME: ${{ steps.issue-parser.outputs.issueparser_team_name }}
         run: |
-           echo "$REPOSITORY"
-           echo "$TEAM_NAME"
+           echo "REPOSITORY=$REPOSITORY" >> $GITHUB_ENV
+           echo "TEAM_NAME=$TEAM_NAME" >> $GITHUB_ENV
       - uses: actions/github-script@v7
         with:
           script: |
