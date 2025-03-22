@@ -2,13 +2,13 @@ name: Add a team to Github Repository
 
 on:
   issues:
-   types:
+    types:
      - opened
      - edited
 
 jobs:
   add-team-to-repo:
-    if: contains(join(github.event.issue.labels.*.name, ','), 'add_team_to_repo')
+    if: (contains(github.event.issue.labels.*.name, 'add_team_to_repo'))
     name: Add team to repo
     runs-on: ubuntu-latest
 
