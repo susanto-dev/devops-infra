@@ -1,7 +1,7 @@
 name: "Add a team to Github repository"
 description: Add a team to Github repository
 title: Add a team to Github repository
-labels: add_team_to_repo
+labels: "add_team_to_repo"
 body:
   - type: markdown
     attributes:
