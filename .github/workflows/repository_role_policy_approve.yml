@@ -14,7 +14,11 @@ on:
       team_name:
         description: "Team Name"
         required: true
-        type: string
+        default: 'Developers'
+        type: choice
+        options:
+         - Leads
+         - Developers
 jobs:
   add-team-to-repo:
     if: contains(join(github.event.issue.labels.*.name, 'add_team_to_repo') || github.event_name == 'workflow_dispatch')
