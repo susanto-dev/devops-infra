@@ -47,7 +47,7 @@ jobs:
           REPOSITORY_WORKFLOW_DISPATCH: ${{ inputs.repository }}
           TEAM_NAME_WORKFLOW_DISPATCH: ${{ inputs.team_name }}
         run: |
-           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+           if [[ "${{ github.event_name }}" == "issues" ]]; then
              echo "REPOSITORY=$REPOSITORY" >> $GITHUB_ENV
              echo "TEAM_NAME=$TEAM_NAME" >> $GITHUB_ENV
            else
