@@ -21,7 +21,7 @@ on:
          - Developers
 jobs:
   add-team-to-repo:
-    if: contains(join(github.event.issue.labels.*.name, 'add_team_to_repo') || github.event_name == 'workflow_dispatch')
+    if: contains(github.event.issue.labels.*.name, 'add_team_to_repo') || github.event_name == 'workflow_dispatch'
     name: Add team to repo
     runs-on: ubuntu-latest
 
@@ -47,7 +47,7 @@ jobs:
           REPOSITORY_WORKFLOW_DISPATCH: ${{ inputs.repository }}
           TEAM_NAME_WORKFLOW_DISPATCH: ${{ inputs.team_name }}
         run: |
-           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+           if [[ "${{ github.event_name }}" == "issues" ]]; then
              echo "REPOSITORY=$REPOSITORY" >> $GITHUB_ENV
              echo "TEAM_NAME=$TEAM_NAME" >> $GITHUB_ENV
            else
