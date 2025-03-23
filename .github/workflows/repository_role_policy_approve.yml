@@ -21,7 +21,7 @@ on:
          - Developers
 jobs:
   add-team-to-repo:
-    if: contains(join(github.event.issue.labels.*.name, 'add_team_to_repo') || github.event_name == 'workflow_dispatch')
+    if: contains(github.event.issue.labels.*.name, 'add_team_to_repo') || github.event_name == 'workflow_dispatch'
     name: Add team to repo
     runs-on: ubuntu-latest
 
