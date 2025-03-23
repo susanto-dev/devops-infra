@@ -5,10 +5,19 @@ on:
     types:
      - opened
      - edited
-
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: "GitHub Repository Name"
+        required: true
+        type: string
+      team_name:
+        description: "Team Name"
+        required: true
+        type: string
 jobs:
   add-team-to-repo:
-    if: contains(github.event.issue.labels.*.name, 'add_team_to_repo')
+    if: contains(join(github.event.issue.labels.*.name, 'add_team_to_repo') || github.event_name == 'workflow_dispatch')
     name: Add team to repo
     runs-on: ubuntu-latest
 
@@ -31,10 +40,19 @@ jobs:
         env: 
           REPOSITORY: ${{ steps.issue-parser.outputs.issueparser_reponame }}
           TEAM_NAME: ${{ steps.issue-parser.outputs.issueparser_team_name }}
+          REPOSITORY_WORKFLOW_DISPATCH: ${{ inputs.repository }}
+          TEAM_NAME_WORKFLOW_DISPATCH: ${{ inputs.team_name }}
         run: |
-           echo "REPOSITORY=$REPOSITORY" >> $GITHUB_ENV
-           echo "TEAM_NAME=$TEAM_NAME" >> $GITHUB_ENV
+           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+             echo "REPOSITORY=$REPOSITORY" >> $GITHUB_ENV
+             echo "TEAM_NAME=$TEAM_NAME" >> $GITHUB_ENV
+           else
+             echo "REPOSITORY=$REPOSITORY_WORKFLOW_DISPATCH" >> $GITHUB_ENV
+             echo "TEAM_NAME=$TEAM_NAME_WORKFLOW_DISPATCH" >> $GITHUB_ENV
+           fi
+
       - uses: actions/github-script@v7
+        if: github.event_name == 'issues'
         with:
           script: |
             github.rest.issues.createComment({
@@ -64,7 +82,9 @@ jobs:
           echo "$HTTP_RESPONSE"
           echo "PRINTING THE RESPONSE TEXT"
           cat response.txt
+
       - uses: actions/github-script@v7
+        if: github.event_name == 'issues'
         with:
           script: |
             github.rest.issues.createComment({
