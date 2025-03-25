@@ -1,6 +1,26 @@
 name: Continuous deployment
 
 on:
+  workflow_call:
+    inputs:
+      repository:
+        description: 'Give repository name'
+        required: true
+        default: 'java-component'
+      version:
+        description: 'Give package version'
+        required: true
+        default: '0.1.0-alpha.58'
+      environment:
+        description: 'Which env to deploy to?'
+        required: true
+        default: 'dev'
+      component:
+        description: 'Which component'
+        required: true
+        default: 'java'
+
+on:
   workflow_dispatch:
     inputs:
       repository:
@@ -23,7 +43,6 @@ on:
         options:
         - java
         - react-native
-
 
 jobs:
   build:
