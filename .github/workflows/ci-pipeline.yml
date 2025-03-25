@@ -7,12 +7,17 @@ on:
         required: true
         default: ""
         type: string
+    outputs:
+      build_version:
+        description: "Build version"
+        value: ${{ jobs.build.outputs.build_version }}
 
 jobs:
   build:
     name: CI Build & publish
     runs-on: ubuntu-latest
-
+    outputs:
+      build_version: ${{ steps.output_version.outputs.version }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -91,6 +96,12 @@ jobs:
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
         run: |
            yarn install --immutable
+
+      - name: Output version
+        id: output_version
+        shell: bash
+        run: |
+          echo "version=${{ steps.gitversion.outputs.SemVer }}" >> $GITHUB_OUTPUT
 
       - name: Build Android Release
         if: ${{ inputs.component == 'react-native' && github.ref == 'refs/heads/main' }}
