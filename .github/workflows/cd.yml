@@ -7,18 +7,22 @@ on:
         description: 'Give repository name'
         required: true
         default: 'java-component'
+        type: string
       version:
         description: 'Give package version'
         required: true
         default: '0.1.0-alpha.58'
+        type: string
       environment:
         description: 'Which env to deploy to?'
         required: true
         default: 'dev'
+        type: string
       component:
         description: 'Which component'
         required: true
         default: 'java'
+        type: string
 
 on:
   workflow_dispatch:
