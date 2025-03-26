@@ -51,7 +51,7 @@ jobs:
   build:
     name: CD
     runs-on: ubuntu-latest
-
+    environment: ${{ inputs.environment }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
