@@ -55,7 +55,13 @@ jobs:
           fetch-depth: 1
           token: ${{ secrets.ACCESS_TOKEN }}
           ref: develop
-
+      - name: Echo inputs
+        shell: bash
+        run: |
+          echo "Repository: ${{ inputs.repository }}"
+          echo "compoennt: ${{ inputs.component }}"
+          echo "environment: ${{ inputs.environment }}"
+          echo "version: ${{ inputs.version }}"
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -87,9 +93,9 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          REPOSITORY: ${{ github.event.inputs.repository }}
-          VERSION: ${{ github.event.inputs.version }}
-          COMPONENT: ${{ github.event.inputs.component }}
+          REPOSITORY: ${{ inputs.repository }}
+          VERSION: ${{ inputs.version }}
+          COMPONENT: ${{ inputs.component }}
         run: |
            if [ $COMPONENT == "java" ]; then
             echo "Download jar"
@@ -119,10 +125,10 @@ jobs:
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          REPOSITORY: ${{ github.event.inputs.repository }}
-          VERSION: ${{ github.event.inputs.version }}
-          ENVIRONMENT: ${{ github.event.inputs.environment }}
-          COMPONENT: ${{ github.event.inputs.component }}
+          REPOSITORY: ${{ inputs.repository }}
+          VERSION: ${{ inputs.version }}
+          ENVIRONMENT: ${{ inputs.environment }}
+          COMPONENT: ${{ inputs.component }}
         run: |
 
          if [ $COMPONENT == "java" ]; then
