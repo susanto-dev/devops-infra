@@ -54,7 +54,7 @@ jobs:
         with:
           fetch-depth: 1
           token: ${{ secrets.ACCESS_TOKEN }}
-          ref: develop
+          ref: main
       - name: Echo inputs
         shell: bash
         run: |
