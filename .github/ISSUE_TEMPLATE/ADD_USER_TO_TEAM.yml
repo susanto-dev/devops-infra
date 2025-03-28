@@ -1,25 +1,24 @@
-name: "Add a team to Github repository"
-description: Add a team to Github repository
-title: Add a team to Github repository
-labels: "add_team_to_repo"
+name: "Add github user to a team"
+description: Add github user to a team
+title: Add github user to a team"
+labels: "add_user_to_team"
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for taking the time to fill out this form!
   - type: input
-    id: reponame
+    id: user
     attributes:
-      label: "Gitub Repository"
-      description: "Give name of the github repository"
-      placeholder: "react-native-component"
+      label: "Github username"
+      description: "Give your github username"
     validations:
       required: true
   - type: dropdown
     id: team_name
     attributes:
       label: "Select your team"
-      description: "Which team to add to repo?"
+      description: "Which team?"
       options:
         - Leads
         - Developers
