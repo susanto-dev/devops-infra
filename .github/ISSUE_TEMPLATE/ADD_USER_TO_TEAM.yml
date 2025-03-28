@@ -1,6 +1,6 @@
 name: "Add github user to a team"
 description: Add github user to a team
-title: Add github user to a team"
+title: Add github user to a team
 labels: "add_user_to_team"
 body:
   - type: markdown
