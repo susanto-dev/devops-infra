@@ -16,7 +16,7 @@ on:
         default: "Some description"
 jobs:
   create_github_repository:
-    if: (contains(github.event.issue.labels.*.name, 'create_repository') && contains(github.event.comment.body, '/approve')) || github.event_name == 'workflow_dispatch'
+    if: contains(github.event.issue.labels.*.name, 'create_repository') || github.event_name == 'workflow_dispatch'
     name: Create New Github Repository
     runs-on: ubuntu-latest
 
