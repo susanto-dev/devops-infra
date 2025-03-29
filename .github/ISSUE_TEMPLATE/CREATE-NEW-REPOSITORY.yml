@@ -8,7 +8,7 @@ body:
       value: |
         Thanks for taking the time to fill out this Github repository request form!
   - type: input
-    id: reponame
+    id: repository
     attributes:
       label: "Gitub Repository"
       description: "Give name of your new github repository"
