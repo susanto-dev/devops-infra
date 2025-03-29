@@ -1,7 +1,7 @@
 name: " 🔨 Request for a new Github Repository"
 description: Create a new GITHUB repository
 title: Create a new repository
-labels: repository
+labels: create_repository
 body:
   - type: markdown
     attributes:
@@ -21,13 +21,5 @@ body:
       label: "Description"
       description: "Describe your repo"
       placeholder: "Some description"
-    validations:
-      required: true
-  - type: input
-    id: soucebranch
-    attributes:
-      label: "Source Branch"
-      description: "What's your source branch(develop or any other)"
-      placeholder: "develop"
     validations:
       required: true
